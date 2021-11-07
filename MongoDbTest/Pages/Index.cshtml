@@ -1,0 +1,52 @@
+﻿@page "{handler?}/{id?}"
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<h2>Employee list</h2>
+<table class="table table-bordered table-striped">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Department</th>
+        <th></th>
+        <th></th>
+    </tr>
+
+    @foreach (var emp in Model.Data)
+    {
+        <tr>
+            <td>@emp.Id</td>
+            <td>@emp.Name</td>
+            <td>@emp.DeptName</td>
+            <td>
+                <a asp-page="Index" asp-route-id="@emp.Id" asp-page-handler="delete"><i class="fas fa-trash text-danger"></i></a>
+            </td>
+            <td>
+                <a asp-page="Index" asp-route-id="@emp.Id" asp-page-handler="edit"><i class="fas fa-pen-alt text-info"></i></a>
+            </td>
+        </tr>
+    }
+</table>
+<form method="post">
+    <div class="card">
+        <div class="card-header">
+            Add new employee
+        </div>
+        <div class="card-body">
+            <div class="form-group">
+                <label asp-for="Employee.Name">Name:</label>
+                <input asp-for="Employee.Name" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Employee.DeptName">Department:</label>
+                <input asp-for="Employee.DeptName" class="form-control" />
+            </div>
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </div>
+    <input type="hidden" asp-for="Employee.Id"/>
+</form>
